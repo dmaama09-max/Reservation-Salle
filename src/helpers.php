@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-function e(mixed $value): string
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+if (!function_exists('echapper')) {
+    function echapper(mixed $value): string
+    {
+        return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+    }
 }

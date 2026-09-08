@@ -14,15 +14,15 @@
 <?php else: ?>
     <div class="schedule">
         <?php foreach ($reservations as $reservation): ?>
-            <a href="/reservations/<?= e($reservation->id) ?>" class="schedule__row">
+            <a href="/reservations/<?= echapper($reservation->id) ?>" class="schedule__row">
                 <span class="schedule__time">
-                    <?= e($reservation->date_debut->format('d/m H:i')) ?> – <?= e($reservation->date_fin->format('H:i')) ?>
-                    <small><?= e($reservation->date_debut->format('Y')) ?></small>
+                    <?= echapper($reservation->date_debut->format('d/m H:i')) ?> – <?= echapper($reservation->date_fin->format('H:i')) ?>
+                    <small><?= echapper($reservation->date_debut->format('Y')) ?></small>
                 </span>
-                <span class="schedule__salle"><?= e($reservation->salle->nom) ?></span>
-                <span class="schedule__meta"><?= e($reservation->responsable) ?></span>
+                <span class="schedule__salle"><?= echapper($reservation->salle->nom) ?></span>
+                <span class="schedule__meta"><?= echapper($reservation->responsable) ?></span>
                 <span class="status-pill <?= $reservation->statut === 'confirmée' ? 'status-pill--confirmee' : 'status-pill--annulee' ?>">
-                    <?= e($reservation->statut) ?>
+                    <?= echapper($reservation->statut) ?>
                 </span>
             </a>
         <?php endforeach; ?>
