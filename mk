@@ -11,6 +11,7 @@ $command = $argv[1] ?? null;
 
 match ($command) {
     'migrate' => runMigrations($initDatabase),
+    'seed' => require __DIR__ . '/database/seed.php',
     default => showHelp(),
 };
 
@@ -35,4 +36,5 @@ function showHelp(): void
 {
     echo "Commandes disponibles :\n";
     echo "  migrate    Exécute les migrations\n";
+    echo "  seed       Insère les données initiales\n";
 }
