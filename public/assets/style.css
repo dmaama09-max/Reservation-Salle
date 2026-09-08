@@ -1,0 +1,420 @@
+/* --- Tokens ------------------------------------------------------ */
+:root {
+    --ink: #16232E;
+    --ink-soft: #4A5A68;
+    --paper: #EAF0F4;
+    --paper-raised: #FFFFFF;
+    --line: #C3D0D8;
+    --accent-confirmed: #8A6116;
+    --accent-alert: #8C2C21;
+    --accent-confirmed-bg: #F3E7D2;
+    --accent-alert-bg: #F5DAD6;
+    --focus: #2F5D7C;
+
+    --font-display: 'Newsreader', Georgia, serif;
+    --font-mono: 'Space Grotesk', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    /* Volontairement non implémenté : l'app reste sur un thème clair unique,
+       cohérent avec la lisibilité d'un panneau d'affichage physique. */
+}
+
+* { box-sizing: border-box; }
+
+html { color-scheme: light; }
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}
+
+/* --- Structure ----------------------------------------------------- */
+.site-header {
+    border-bottom: 1px solid var(--line);
+    background: var(--paper-raised);
+}
+
+.site-header__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.wordmark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.site-nav {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.site-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+}
+
+main {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+}
+
+.page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.page-head h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(28px, 4vw, 38px);
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.page-head p {
+    color: var(--ink-soft);
+    margin: 6px 0 0;
+    max-width: 60ch;
+}
+
+/* --- Boutons -------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 3px;
+    text-decoration: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn:hover { background: var(--ink); color: var(--paper-raised); }
+
+.btn--primary {
+    background: var(--ink);
+    color: var(--paper-raised);
+}
+
+.btn--primary:hover { background: var(--accent-confirmed); border-color: var(--accent-confirmed); }
+
+.btn--danger {
+    border-color: var(--accent-alert);
+    color: var(--accent-alert);
+}
+
+.btn--danger:hover { background: var(--accent-alert); color: #fff; }
+
+:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+
+/* --- Répertoire (listes) -------------------------------------------- */
+.directory {
+    border-top: 1px solid var(--line);
+}
+
+.directory__row {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 0.9fr 0.6fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 18px 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+}
+
+.directory__row:hover { background: var(--paper-raised); }
+
+.directory__name {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.directory__meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+
+.status-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.status-dot::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-alert);
+}
+
+.status-dot--active::before { background: var(--accent-confirmed); }
+
+.directory__empty {
+    padding: 48px 4px;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+}
+
+/* --- Fiche détail ----------------------------------------------------- */
+.record-header {
+    margin-bottom: 32px;
+}
+
+.record-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 500;
+    margin: 0 0 4px;
+}
+
+.record-header .status-dot { font-size: 14px; }
+
+.attributes {
+    border-top: 1px solid var(--line);
+    margin: 24px 0 40px;
+}
+
+.attributes__row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--line);
+}
+
+.attributes__label {
+    color: var(--ink-soft);
+    font-size: 13px;
+}
+
+.attributes__value { font-size: 15px; }
+
+.actions-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* --- Formulaires -------------------------------------------------------- */
+.form-grid {
+    display: grid;
+    gap: 24px;
+    max-width: 520px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+
+.field input[type="text"],
+.field input[type="number"],
+.field input[type="email"],
+.field input[type="datetime-local"],
+.field select {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-bottom-color: var(--focus);
+}
+
+.field--checkbox {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.field-error {
+    font-size: 13px;
+    color: var(--accent-alert);
+}
+
+.field.has-error input,
+.field.has-error select {
+    border-bottom-color: var(--accent-alert);
+}
+
+.form-alert {
+    background: var(--accent-alert-bg);
+    color: var(--accent-alert);
+    padding: 14px 16px;
+    border-radius: 3px;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.form-success {
+    background: var(--accent-confirmed-bg);
+    color: var(--accent-confirmed);
+    padding: 14px 16px;
+    border-radius: 3px;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+/* --- Responsive ------------------------------------------------------ */
+@media (max-width: 640px) {
+    .directory__row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .attributes__row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    .site-header__inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+
+
+/* --- Horaire (réservations) ------------------------------------------ */
+.schedule {
+    border-top: 1px solid var(--line);
+}
+
+.schedule__row {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 18px 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+}
+
+.schedule__row:hover { background: var(--paper-raised); }
+
+.schedule__time {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.schedule__time small {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-weight: 400;
+}
+
+.schedule__salle {
+    font-family: var(--font-display);
+    font-size: 16px;
+}
+
+.schedule__meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+
+.status-pill {
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 3px;
+    justify-self: start;
+}
+
+.status-pill--confirmee {
+    background: var(--accent-confirmed-bg);
+    color: var(--accent-confirmed);
+}
+
+.status-pill--annulee {
+    background: var(--accent-alert-bg);
+    color: var(--accent-alert);
+}
+
+@media (max-width: 640px) {
+    .schedule__row { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* --- Erreurs ------------------------------------------------------ */
+.error-page {
+    text-align: center;
+    padding: 96px 0;
+}
+
+.error-page__code {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(48px, 10vw, 88px);
+    margin: 0;
+    color: var(--ink-soft);
+}
+
+.error-page__title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    margin: 8px 0 12px;
+}
+
+.error-page__text {
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+}

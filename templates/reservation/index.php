@@ -1,0 +1,30 @@
+<?php
+/** @var \App\Model\Reservation[] $reservations */
+?>
+<div class="page-head">
+    <div>
+        <h1>Réservations</h1>
+        <p>Suivez les créneaux confirmés et annulés sur l'ensemble des salles.</p>
+    </div>
+    <a href="/reservations/create" class="btn btn--primary">Nouvelle réservation</a>
+</div>
+
+<?php if (empty($reservations)): ?>
+    <div class="directory__empty">Aucune réservation pour l'instant.</div>
+<?php else: ?>
+    <div class="schedule">
+        <?php foreach ($reservations as $reservation): ?>
+            <a href="/reservations/<?= e($reservation->id) ?>" class="schedule__row">
+                <span class="schedule__time">
+                    <?= e($reservation->date_debut->format('d/m H:i')) ?> – <?= e($reservation->date_fin->format('H:i')) ?>
+                    <small><?= e($reservation->date_debut->format('Y')) ?></small>
+                </span>
+                <span class="schedule__salle"><?= e($reservation->salle->nom) ?></span>
+                <span class="schedule__meta"><?= e($reservation->responsable) ?></span>
+                <span class="status-pill <?= $reservation->statut === 'confirmée' ? 'status-pill--confirmee' : 'status-pill--annulee' ?>">
+                    <?= e($reservation->statut) ?>
+                </span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
