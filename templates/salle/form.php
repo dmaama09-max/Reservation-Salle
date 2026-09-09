@@ -4,6 +4,7 @@
 /** @var array $old */
 
 $types = ['cours', 'informatique', 'laboratoire', 'amphitheatre', 'reunion'];
+$action = $salle !== null ? "/salles/{$salle->id}/edit" : '/salles';
 
 function valeur(string $champ, $salle, array $old): string
 {
@@ -24,7 +25,7 @@ function valeur(string $champ, $salle, array $old): string
     <div class="form-alert"><?= echapper($errors['general']) ?></div>
 <?php endif; ?>
 
-<form method="POST" class="form-grid">
+<form method="POST" action="<?= echapper($action) ?>" class="form-grid">
     <div class="field <?= isset($errors['nom']) ? 'has-error' : '' ?>">
         <label for="nom">Nom</label>
         <input type="text" id="nom" name="nom" value="<?= echapper(valeur('nom', $salle, $old)) ?>">
