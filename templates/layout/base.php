@@ -23,6 +23,9 @@
         </div>
     </header>
     <main>
+        <?php if ($message = recupererFlash('success')): ?>
+            <div class="form-success"><?= echapper($message) ?></div>
+        <?php endif; ?>
         <?= $content ?>
     </main>
 </body>

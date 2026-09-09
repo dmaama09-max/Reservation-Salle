@@ -75,7 +75,7 @@ final class SalleController
         ]);
 
         $this->salles->enregistrer($salle);
-
+        flash('success', 'Salle ajoutée avec succès.');
         header('Location: /salles');
     }
 
@@ -122,7 +122,7 @@ final class SalleController
 
         $salle->fill($result->data());
         $this->salles->enregistrer($salle);
-
+        flash('success', 'Salle modifiée avec succès.');
         header('Location: /salles/' . $salle->id);
     }
 }

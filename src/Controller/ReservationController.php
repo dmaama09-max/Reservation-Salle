@@ -87,7 +87,7 @@ final class ReservationController
             ]);
             return;
         }
-
+        flash('success', 'Réservation confirmée.');
         header('Location: /reservations');
     }
 
@@ -95,12 +95,13 @@ final class ReservationController
     {
         try {
             $this->annulerService->annuler((int) $params['id']);
+            flash('success', 'Réservation annulée.');
+            header('Location: /reservations');
+
         } catch (ReservationIntrouvableException $exception) {
             http_response_code(404);
             echo $this->view->render('error/404');
             return;
         }
-
-        header('Location: /reservations');
     }
 }

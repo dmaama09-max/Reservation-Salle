@@ -19,6 +19,9 @@ final class Application
 
     public function run(): void
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         // Force le démarrage d'Eloquent via le conteneur (voir config/container.php).
         $this->container->get(\Illuminate\Database\Capsule\Manager::class);
 
@@ -44,11 +47,17 @@ final class Application
                 [$controllerClass, $method] = $routeInfo[1];
                 $params = $routeInfo[2];
 
-                $controller = $this->container->get($controllerClass);
-                $resultat = $controller->$method($params);
+                try {
+                    $controller = $this->container->get($controllerClass);
+                    $resultat = $controller->$method($params);
 
-                if (is_string($resultat)) {
-                    echo $resultat;
+                    if (is_string($resultat)) {
+                        echo $resultat;
+                    }
+                } catch (\Throwable $exception) {
+                    error_log($exception->getMessage());
+                    http_response_code(500);
+                    echo $this->view->render('error/500', [], 'Erreur');
                 }
                 break;
         }
